@@ -1,19 +1,23 @@
 package components;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 //1.1.1 Creation of the client class
 
 public class Client {
 	
-public static void main(String[] args) {
-		Client client1 = new Client("Fahmi", "Samir");
-		Client client2 = new Client("Loulou", "poulou");
-		System.out.println(client1);
-		System.out.println(client2);
-		
-	}
+	public static void main(String[] args) {
+			Client client1 = new Client("Fahmi", "Samir");
+			Client client2 = new Client("Loulou", "poulou");
+			System.out.println(client1);
+			System.out.println(client2);
+				
+			
+		}
 	
+		
 	//Attributes 
 	private String name;
 	private String firstName;
@@ -48,9 +52,10 @@ public static void main(String[] args) {
 	}
 	
 	// toString() method
-	public String toString(){	  
-		  return "Lastname : " + name + ", "+ "Firstname : " + firstName + ", " + "Client number : " + clientNumber ;  
-		 }  
+	@Override
+	public String toString() {	  
+		return "(Lastname : " + name + ", "+ "Firstname : " + firstName + ", " + "Client number : " + clientNumber + ")";
+	}  
 	
 
 }
