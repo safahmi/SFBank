@@ -7,7 +7,8 @@ import components.*;
 
 // 1.1.2 Creation of main class for tests
 public class Main {
-
+	
+	//Tests
 	public static void main(String[] args) {
 		Client client1 = new Client("Fahmi", "Samir");
 		Client client2 = new Client("Loulou", "poulou");
@@ -18,13 +19,13 @@ public class Main {
 		allClients.add(client2);
 		allClients.add(client3);
 		allClients.add(client4);
-		System.out.println(allClients.toString());
-		List<Client> partOfClients = loadTableClients(allClients, 3);
-		System.out.println(partOfClients.toString());
+		List<Client> partOfClients = loadTableClients(allClients, 1);
+		displayTable(allClients);
+		displayTable(partOfClients);
 	}
 
-	
-	public static List<Client> loadTableClients(List<Client> allClients, int numberOfClients) {
+	// method to load the table of clients contains the number of clients in parameter and return it 
+	private static List<Client> loadTableClients(List<Client> allClients, int numberOfClients) {
 		if (numberOfClients > allClients.size()) {
 			System.out.println("The table contains less than " + numberOfClients + " clients!");
 			return allClients;
@@ -36,9 +37,10 @@ public class Main {
 		return partOfClients;
 	}
 	
-	@Override
-	public String toString() {	  
-		return super.toString();
+	// method to display the table of clients uses a stream
+	private static void displayTable(List<Client> allClients) {	
+		System.out.println("Table of clients : ");
+		allClients.stream().forEach(elem -> System.out.println(elem.toString()));
 	}  
 
 }

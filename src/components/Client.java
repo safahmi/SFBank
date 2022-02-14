@@ -8,14 +8,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Client {
 	
-	public static void main(String[] args) {
-			Client client1 = new Client("Fahmi", "Samir");
-			Client client2 = new Client("Loulou", "poulou");
-			System.out.println(client1);
-			System.out.println(client2);
-				
-			
-		}
+//	public static void main(String[] args) {
+//			Client client1 = new Client("Fahmi", "Samir");
+//			Client client2 = new Client("Loulou", "poulou");
+//			System.out.println(client1);
+//			System.out.println(client2);
+//				
+//			
+//		}
 	
 		
 	//Attributes 
@@ -31,6 +31,7 @@ public class Client {
 		this.clientNumber = count.incrementAndGet();
 	}
 	
+
 	//Accessors end Mutators of each attribute
 	private String getName() {
 		return name;
@@ -54,7 +55,7 @@ public class Client {
 	// toString() method
 	@Override
 	public String toString() {	  
-		return "(Lastname : " + name + ", "+ "Firstname : " + firstName + ", " + "Client number : " + clientNumber + ")";
+		return "(" + this.name + ", " + this.firstName + ")";
 	}  
 	
 
