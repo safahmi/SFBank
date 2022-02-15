@@ -4,8 +4,8 @@ package components;
 
 public class Credit extends Flow {
 
-	public Credit(double amount) {
-		super(amount);
+	public Credit(double amount, int targetAccountNumber) {
+		super(amount, targetAccountNumber);
 	}
 
 }

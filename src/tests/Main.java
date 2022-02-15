@@ -8,12 +8,9 @@ import java.util.Map.Entry;
 
 import components.Account;
 import components.Client;
-import components.Credit;
 import components.CurrentAccount;
-import components.Debit;
 import components.Flow;
 import components.SavingsAccount;
-import components.Transfert;
 
 // 1.1.2 Creation of main class for tests
 public class Main {
@@ -33,7 +30,8 @@ public class Main {
 		displayTableAccountsMap(allAccountsMap);
 
 		// 1.3.4 Creation of the flow array
-		Flow[] flowArray = { new Debit(50), new Credit(100.50), new Credit(1500), new Transfert(50) };
+		// Flow[] flowArray = { new Debit(50), new Credit(100.50), new Credit(1500), new
+		// Transfert(50) };
 
 	}
 

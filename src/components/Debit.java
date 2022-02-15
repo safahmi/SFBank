@@ -4,8 +4,8 @@ package components;
 
 public class Debit extends Flow {
 
-	public Debit(double amount) {
-		super(amount);
+	public Debit(double amount, int targetAccountNumber) {
+		super(amount, targetAccountNumber);
 	}
 
 }

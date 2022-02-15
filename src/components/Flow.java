@@ -1,6 +1,7 @@
 package components;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicInteger;
 
 // 1.3.2 Creation of the Flow class
 
@@ -13,9 +14,12 @@ public abstract class Flow {
 	private int targetAccountNumber;
 	private boolean effect;
 	private LocalDateTime date;
+	private static final AtomicInteger count = new AtomicInteger(0);
 
-	public Flow(double amount) {
+	public Flow(double amount, int targetAccountNumber) {
 		this.amount = amount;
+		this.targetAccountNumber = targetAccountNumber;
+		this.identifier = count.incrementAndGet();
 
 	}
 
