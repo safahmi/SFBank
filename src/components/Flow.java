@@ -16,9 +16,17 @@ public abstract class Flow {
 	private LocalDateTime date;
 	private static final AtomicInteger count = new AtomicInteger(0);
 
+	/**
+	 * @param amount
+	 * @param targetAccountNumber
+	 */
 	public Flow(double amount, int targetAccountNumber) {
 		this.amount = amount;
 		this.targetAccountNumber = targetAccountNumber;
+		// For the date of flows, operations are carried out 2 days after the creation
+		// of flows.
+		// Use the new features of java 8 to add 2 days to the current date.
+		this.date = LocalDateTime.now().plusDays(2);
 		this.identifier = count.incrementAndGet();
 
 	}
