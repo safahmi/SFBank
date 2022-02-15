@@ -8,9 +8,12 @@ import java.util.Map.Entry;
 
 import components.Account;
 import components.Client;
+import components.Credit;
 import components.CurrentAccount;
+import components.Debit;
 import components.Flow;
 import components.SavingsAccount;
+import components.Transfert;
 
 // 1.1.2 Creation of main class for tests
 public class Main {
@@ -30,8 +33,7 @@ public class Main {
 		displayTableAccountsMap(allAccountsMap);
 
 		// 1.3.4 Creation of the flow array
-		// Flow[] flowArray = { new Debit(50), new Credit(100.50), new Credit(1500), new
-		// Transfert(50) };
+		List<Flow> allFlows = loadTableFlows(allAccounts);
 
 	}
 
@@ -116,10 +118,26 @@ public class Main {
 		return s1.getValue().getBalance() >= s2.getValue().getBalance() ? 1 : -1;
 	}
 
-	// 1.3.4 method to display the flow array
-	private static void loadFlowArray(Flow[] flowArray, List<Account> allAccounts) {
-//			allAccounts.get(0).setBalance(flowArray[0]);
+	// 1.3.4 method to load the flow array
+	private static List<Flow> loadTableFlows(List<Account> accounts) {
 
+		List<Flow> flowList = new ArrayList<>();
+		// a debit of 50€ from account n°1
+		flowList.add(new Debit(50, 1));
+		for (Account account : accounts) {
+			if (account instanceof CurrentAccount) {
+				// A credit of 100.50€ on all current accounts in the array of accounts
+				flowList.add(new Credit(100.50, account.getAccountNumber()));
+			} else if (account instanceof SavingsAccount) {
+				// A credit of 1500€ on all savings accounts in this same array
+				flowList.add(new Credit(1500, account.getAccountNumber()));
+			}
+
+		}
+		// A transfer of 50 € from account n ° 1 to account n ° 2
+		flowList.add(new Transfert(50, 2, 1));
+
+		return flowList;
 	}
 
 }

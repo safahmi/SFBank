@@ -6,8 +6,9 @@ public class Transfert extends Flow {
 
 	private int issuingAccountNumber;
 
-	public Transfert(double amount, int targetAccountNumber) {
+	public Transfert(double amount, int targetAccountNumber, int issuingAccountNumber) {
 		super(amount, targetAccountNumber);
+		setIssuingAccountNumber(issuingAccountNumber);
 	}
 
 	public int getIssuingAccountNumber() {
