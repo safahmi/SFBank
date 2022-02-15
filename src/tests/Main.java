@@ -1,46 +1,127 @@
 package tests;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import components.*;
+import components.Account;
+import components.Client;
+import components.Credit;
+import components.CurrentAccount;
+import components.Debit;
+import components.Flow;
+import components.SavingsAccount;
+import components.Transfert;
 
 // 1.1.2 Creation of main class for tests
 public class Main {
-	
-	//Tests
+
 	public static void main(String[] args) {
-		Client client1 = new Client("Fahmi", "Samir");
-		Client client2 = new Client("Loulou", "poulou");
-		Client client3 = new Client("Lupin", "Jean");
-		Client client4 = new Client("Dupond", "Martin");
+		// Tests client
 		List<Client> allClients = new ArrayList<>();
-		allClients.add(client1);
-		allClients.add(client2);
-		allClients.add(client3);
-		allClients.add(client4);
-		List<Client> partOfClients = loadTableClients(allClients, 1);
-		displayTable(allClients);
-		displayTable(partOfClients);
+		allClients = loadTableClients(2);
+		displayTableClients(allClients);
+
+		// 1.2.3 Creation of the table account
+		List<Account> allAccounts = loadTableAccounts(allClients);
+		displayTableAccounts(allAccounts);
+
+		// 1.3.1 Adaptation of the table of accounts
+		Map<Integer, Account> allAccountsMap = loadTableAccountsWithId(allAccounts);
+		displayTableAccountsMap(allAccountsMap);
+
+		// 1.3.4 Creation of the flow array
+		Flow[] flowArray = { new Debit(50), new Credit(100.50), new Credit(1500), new Transfert(50) };
+
 	}
 
-	// method to load the table of clients contains the number of clients in parameter and return it 
-	private static List<Client> loadTableClients(List<Client> allClients, int numberOfClients) {
-		if (numberOfClients > allClients.size()) {
-			System.out.println("The table contains less than " + numberOfClients + " clients!");
-			return allClients;
+	// method to load the table of clients contains the number of clients in
+	// parameter and return it
+	private static List<Client> loadTableClients(int numberOfClients) {
+		List<Client> clients = new ArrayList<>();
+		for (int i = 1; i <= numberOfClients; i++) {
+			clients.add(new Client("name" + i, "firstName" + i));
 		}
-		List<Client> partOfClients = new ArrayList<>();
-		for (int i = 0; i < numberOfClients; i++) {
-			partOfClients.add(allClients.get(i));
-		}
-		return partOfClients;
+		return clients;
 	}
-	
-	// method to display the table of clients uses a stream
-	private static void displayTable(List<Client> allClients) {	
-		System.out.println("Table of clients : ");
-		allClients.stream().forEach(elem -> System.out.println(elem.toString()));
-	}  
+
+	/**
+	 * method to display the table of clients uses a stream
+	 * 
+	 * @param allClients
+	 */
+	private static void displayTableClients(List<Client> allClients) {
+		System.out.println("\nTable of clients : \n");
+		allClients.stream().forEach(System.out::println);
+	}
+
+	/**
+	 * method to load the table of accounts
+	 * 
+	 * @param clients
+	 * @return
+	 */
+	private static List<Account> loadTableAccounts(List<Client> clients) {
+
+		List<Account> allAccounts = new ArrayList<>();
+
+		for (int i = 0; i < clients.size(); i++) {
+			CurrentAccount currentAccount = new CurrentAccount("Current Account", clients.get(i));
+			SavingsAccount savingsAccount = new SavingsAccount("Savings Account", clients.get(i));
+			allAccounts.add(currentAccount);
+			allAccounts.add(savingsAccount);
+		}
+
+		return allAccounts;
+
+	}
+
+	/**
+	 * method to display the table of accounts
+	 * 
+	 * @param allAccounts
+	 */
+	private static void displayTableAccounts(List<Account> allAccounts) {
+		System.out.println("\nTable of accounts : \n");
+		allAccounts.stream().forEach(System.out::println);
+	}
+
+	/**
+	 * 
+	 * @param allAccounts
+	 * @return an Hashtable (account identifier, Account) of accounts
+	 */
+	private static Map<Integer, Account> loadTableAccountsWithId(List<Account> allAccounts) {
+		Map<Integer, Account> allAccountsMap = new HashMap<>();
+		for (Account account : allAccounts) {
+			allAccountsMap.put(account.getAccountNumber(), account);
+		}
+		return allAccountsMap;
+	}
+
+	// method to display the Hashtable in ascending order according to the balance
+	private static void displayTableAccountsMap(Map<Integer, Account> allAccountsMap) {
+
+		System.out.println("\nHashtable of accounts : \n");
+		allAccountsMap.entrySet().stream().sorted((s1, s2) -> balancesComparator(s1, s2)).forEach(System.out::println);
+
+	}
+
+	/**
+	 * @param s1
+	 * @param s2
+	 * @return 1 if s1 balance >= s2 balance
+	 */
+	private static int balancesComparator(Entry<Integer, Account> s1, Entry<Integer, Account> s2) {
+		return s1.getValue().getBalance() >= s2.getValue().getBalance() ? 1 : -1;
+	}
+
+	// 1.3.4 method to display the flow array
+	private static void loadFlowArray(Flow[] flowArray, List<Account> allAccounts) {
+//			allAccounts.get(0).setBalance(flowArray[0]);
+
+	}
 
 }
