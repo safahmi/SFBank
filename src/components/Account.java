@@ -34,7 +34,19 @@ public abstract class Account {
 	}
 
 	public void setBalance(Flow flow) {
-		throw new UnsupportedOperationException("Will be implement in release 1.3.5");
+		if (flow instanceof Credit && flow.getTargetAccountNumber() == this.accountNumber) {
+			this.balance = this.balance + flow.getAmount();
+		} else if (flow instanceof Debit && flow.getTargetAccountNumber() == this.accountNumber) {
+			this.balance = this.balance - flow.getAmount();
+		} else if (flow instanceof Transfert && flow.getTargetAccountNumber() == this.accountNumber) {
+			this.balance = this.balance + flow.getAmount();
+		} else if (flow instanceof Transfert && ((Transfert) flow).getIssuingAccountNumber() == this.accountNumber) {
+			this.balance = this.balance - flow.getAmount();
+		} else {
+			System.err.println("With the given flow, operation is not permitted");
+		}
+
+		flow.setEffect(true);
 	}
 
 	public int getAccountNumber() {

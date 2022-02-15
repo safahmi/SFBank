@@ -21,7 +21,7 @@ public class Main {
 	public static void main(String[] args) {
 		// Tests client
 		List<Client> allClients = new ArrayList<>();
-		allClients = loadTableClients(2);
+		allClients = loadTableClients(3);
 		displayTableClients(allClients);
 
 		// 1.2.3 Creation of the table account
@@ -34,6 +34,10 @@ public class Main {
 
 		// 1.3.4 Creation of the flow array
 		List<Flow> allFlows = loadTableFlows(allAccounts);
+
+		// 1.3.5 Updating accounts
+		executeFlows(allFlows, allAccountsMap);
+		displayTableAccountsMap(allAccountsMap);
 
 	}
 
@@ -138,6 +142,24 @@ public class Main {
 		flowList.add(new Transfert(50, 2, 1));
 
 		return flowList;
+	}
+
+	/**
+	 * @param flows
+	 * @param accountsMap
+	 */
+	private static void executeFlows(List<Flow> flows, Map<Integer, Account> accountsMap) {
+
+		for (Flow flow : flows) {
+			if (flow instanceof Transfert) {
+				Account accountIssuingForThisFlow = accountsMap.get(((Transfert) flow).getIssuingAccountNumber());
+				accountIssuingForThisFlow.setBalance(flow);
+			}
+			Account accountForThisFlow = accountsMap.get(flow.getTargetAccountNumber());
+			accountForThisFlow.setBalance(flow);
+		}
+		accountsMap.values().stream().filter(acc -> acc.getBalance() < 0)
+				.forEach(elem -> System.out.println("Negative amount : " + elem.getBalance()));
 	}
 
 }
