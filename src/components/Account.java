@@ -33,8 +33,8 @@ public abstract class Account {
 		return balance;
 	}
 
-	public void setBalance(double balance) {
-		this.balance = balance;
+	public void setBalance(Flow flow) {
+		throw new UnsupportedOperationException("Will be implement in release 1.3.5");
 	}
 
 	public int getAccountNumber() {
