@@ -51,7 +51,7 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "(" + this.name + ", " + this.firstName + ", " + this.clientNumber + ")";
+		return "(" + this.name + ", " + this.firstName + ")";
 	}
 
 }
