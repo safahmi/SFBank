@@ -145,6 +145,10 @@ public class Main {
 	}
 
 	/**
+	 * method accepting this array of Flows, and the Map of accounts (paragraph
+	 * 1.3.1), to update the balances of the accounts concerned. For each Flow, it
+	 * will update the corresponding (Transfer) accounts
+	 * 
 	 * @param flows
 	 * @param accountsMap
 	 */
@@ -152,12 +156,14 @@ public class Main {
 
 		for (Flow flow : flows) {
 			if (flow instanceof Transfert) {
+				// For a transfer we have to update the balance of the issuing account also
 				Account accountIssuingForThisFlow = accountsMap.get(((Transfert) flow).getIssuingAccountNumber());
 				accountIssuingForThisFlow.setBalance(flow);
 			}
 			Account accountForThisFlow = accountsMap.get(flow.getTargetAccountNumber());
 			accountForThisFlow.setBalance(flow);
 		}
+		// to display a message if there is an account with a negative balance
 		accountsMap.values().stream().filter(acc -> acc.getBalance() < 0)
 				.forEach(elem -> System.out.println("Negative amount : " + elem.getBalance()));
 	}

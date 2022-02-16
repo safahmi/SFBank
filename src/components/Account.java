@@ -33,16 +33,29 @@ public abstract class Account {
 		return balance;
 	}
 
+	// update the balance according to the type of Flow (Transfer, Credit, Debit).
 	public void setBalance(Flow flow) {
+
+		// If it is a credit, the amount is added to the balance
 		if (flow instanceof Credit && flow.getTargetAccountNumber() == this.accountNumber) {
 			this.balance = this.balance + flow.getAmount();
-		} else if (flow instanceof Debit && flow.getTargetAccountNumber() == this.accountNumber) {
+		}
+		// If it is a debit, the amount is removed from the balance
+		else if (flow instanceof Debit && flow.getTargetAccountNumber() == this.accountNumber) {
 			this.balance = this.balance - flow.getAmount();
-		} else if (flow instanceof Transfert && flow.getTargetAccountNumber() == this.accountNumber) {
+		}
+		// If it is a Transfer, if the account number is equal to the target account
+		// number of the Transfer,the amount is added to the balance
+		else if (flow instanceof Transfert && flow.getTargetAccountNumber() == this.accountNumber) {
 			this.balance = this.balance + flow.getAmount();
-		} else if (flow instanceof Transfert && ((Transfert) flow).getIssuingAccountNumber() == this.accountNumber) {
+		}
+		// If the account number is equal to the issuing account number,
+		// the amount is removed from the balance.
+		else if (flow instanceof Transfert && ((Transfert) flow).getIssuingAccountNumber() == this.accountNumber) {
 			this.balance = this.balance - flow.getAmount();
-		} else {
+		}
+
+		else {
 			System.err.println("With the given flow, operation is not permitted");
 		}
 
@@ -70,7 +83,6 @@ public abstract class Account {
 		this.client = client;
 	}
 
-	// toString() method
 	@Override
 	public String toString() {
 		return "(Client : " + client + ", " + "Label : " + label + ", " + "Balance : " + balance + ", Account number : "
